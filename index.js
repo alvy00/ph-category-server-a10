@@ -29,6 +29,7 @@ async function run() {
 
         const db = client.db("billsDB");
         const billsColl = db.collection("bills");
+        const paidBillsColl = db.collection("paidbills");
 
         app.get("/bills", async (req, res) => {
             const bills = await billsColl.find().toArray();
@@ -46,7 +47,14 @@ async function run() {
         app.post("/addbill", async (req, res) => {
             const bill = req.body;
             const insertion = billsColl.insertOne(bill);
-            console.log(bill);
+            //console.log(bill);
+
+            res.send(bill);
+        });
+
+        app.post("/paybill", async (req, res) => {
+            const bill = req.body;
+            const insertion = paidBillsColl.insertOne(bill);
 
             res.send(bill);
         });
