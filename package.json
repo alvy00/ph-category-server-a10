@@ -1,5 +1,27 @@
 {
+  "name": "gobills",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/alvy00/ph-category-server-a10#readme",
+  "bugs": {
+    "url": "https://github.com/alvy00/ph-category-server-a10/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alvy00/ph-category-server-a10.git"
+  },
+  "license": "ISC",
+  "author": "Alvy",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "dependencies": {
-    "express": "^5.1.0"
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "mongodb": "^7.0.0",
+    "nodemon": "^3.1.11"
   }
 }
