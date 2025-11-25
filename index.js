@@ -83,6 +83,34 @@ async function run() {
             res.send(bill);
         });
 
+        app.delete("/deletebill/:id", async (req, res) => {
+            const { id } = req.params;
+            const query = { _id: new ObjectId(id) };
+            const delResult = await billsColl.deleteOne(query);
+
+            //console.log(delResult.deletedCount);
+            res.send(delResult);
+        });
+
+        app.patch("/updatebill/:id", async (req, res) => {
+            const { id } = req.params;
+            const bill = req.body;
+            const update = {
+                $set: {
+                    amount: bill.amount,
+                    location: bill.location,
+                    username: bill.username,
+                    phone: bill.phone,
+                    date: bill.updatedDate,
+                },
+            };
+            const query = { _id: new ObjectId(id) };
+            const options = {};
+
+            const updateRes = await billsColl.updateOne(query, update, options);
+            res.send(updateRes.upsertedCount);
+        });
+
         await client.db("admin").command({ ping: 1 });
         console.log("MongoDB pinged!");
     } finally {
