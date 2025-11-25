@@ -37,11 +37,27 @@ async function run() {
             res.send(bills);
         });
 
+        app.get("/recentbills", async (req, res) => {
+            const bills = await billsColl.find().limit(6).toArray();
+            //console.log(bills);
+            res.send(bills);
+        });
+
         app.get("/bill/:id", async (req, res) => {
             const { id } = req.params;
 
             const result = await billsColl.findOne({ _id: new ObjectId(id) });
             res.send(result);
+        });
+
+        app.get("/mybills/:email", async (req, res) => {
+            const { email } = req.params;
+            const query = { email: email };
+
+            const cursor = billsColl.find(query);
+            const data = await cursor.toArray();
+            console.log(data);
+            res.send(data);
         });
 
         app.post("/addbill", async (req, res) => {
