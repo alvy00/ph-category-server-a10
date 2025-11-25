@@ -54,9 +54,17 @@ async function run() {
             const { email } = req.params;
             const query = { email: email };
 
-            const cursor = billsColl.find(query);
+            const cursor = await billsColl.find(query);
             const data = await cursor.toArray();
-            console.log(data);
+            //console.log(data);
+            res.send(data);
+        });
+
+        app.get("/mypaidbills", async (req, res) => {
+            //const { email } = req.body;
+            const { email } = req.query;
+            const data = await paidBillsColl.find({ email }).toArray();
+            //console.log(data);
             res.send(data);
         });
 
