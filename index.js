@@ -33,7 +33,6 @@ async function run() {
 
         app.get("/bills", async (req, res) => {
             const bills = await billsColl.find().toArray();
-            //console.log(bills);
             res.send(bills);
         });
 
@@ -56,14 +55,11 @@ async function run() {
                 acc[category].push(bill);
                 return acc;
             }, {});
-            // const bills = { electricity, water, gas, internet };
-            // console.log(groupedBills);
             res.send(groupedBills);
         });
 
         app.get("/recentbills", async (req, res) => {
             const bills = await billsColl.find().limit(6).toArray();
-            //console.log(bills);
             res.send(bills);
         });
 
@@ -80,22 +76,18 @@ async function run() {
 
             const cursor = await billsColl.find(query);
             const data = await cursor.toArray();
-            //console.log(data);
             res.send(data);
         });
 
         app.get("/mypaidbills", async (req, res) => {
-            //const { email } = req.body;
             const { email } = req.query;
             const data = await paidBillsColl.find({ email }).toArray();
-            //console.log(data);
             res.send(data);
         });
 
         app.post("/addbill", async (req, res) => {
             const bill = req.body;
             const insertion = billsColl.insertOne(bill);
-            //console.log(bill);
 
             res.send(bill);
         });
@@ -112,7 +104,6 @@ async function run() {
             const query = { _id: new ObjectId(id) };
             const delResult = await billsColl.deleteOne(query);
 
-            //console.log(delResult.deletedCount);
             res.send(delResult);
         });
 
