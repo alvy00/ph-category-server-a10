@@ -37,6 +37,30 @@ async function run() {
             res.send(bills);
         });
 
+        app.get("/getfiltered", async (req, res) => {
+            // const electricity = await billsColl
+            //     .find({ category: "electricity" })
+            //     .toArray();
+            // const water = await billsColl.find({ category: "water" }).toArray();
+            // const gas = await billsColl.find({ category: "gas" }).toArray();
+            // const internet = await billsColl
+            //     .find({ category: "internet" })
+            //     .toArray();
+            const bills = await billsColl.find().toArray();
+            const groupedBills = bills.reduce((acc, bill) => {
+                const category = bill.category.toLowerCase();
+                if (!acc[category]) {
+                    acc[category] = [];
+                }
+
+                acc[category].push(bill);
+                return acc;
+            }, {});
+            // const bills = { electricity, water, gas, internet };
+            // console.log(groupedBills);
+            res.send(groupedBills);
+        });
+
         app.get("/recentbills", async (req, res) => {
             const bills = await billsColl.find().limit(6).toArray();
             //console.log(bills);
