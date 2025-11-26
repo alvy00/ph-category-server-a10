@@ -126,8 +126,8 @@ async function run() {
             res.send(updateRes.upsertedCount);
         });
 
-        await client.db("admin").command({ ping: 1 });
-        console.log("MongoDB pinged!");
+        //await client.db("admin").command({ ping: 1 });
+        //console.log("MongoDB pinged!");
     } finally {
     }
 }
