@@ -94,7 +94,7 @@ async function run() {
 
         app.post("/paybill", async (req, res) => {
             const bill = req.body;
-            const insertion = paidBillsColl.insertOne(bill);
+            const insertion = await paidBillsColl.insertOne(bill);
 
             res.send(bill);
         });
